@@ -2,28 +2,25 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import BottomNav from '../src/components/ui/BottomNav';
+import BottomNav from '@/components/ui/BottomNav';
 
-export default function EventPage() {
+export default function ScoringPage() {
   const router = useRouter();
 
   const menuItems = [
     {
-      title: 'Data Peserta',
-      icon: '📋',
-      path: '/participants',
+      title: 'Data peserta',
+      path: '/scoring/participants',
       bookmarked: true,
     },
     {
       title: 'Input Skor',
-      icon: '🎯',
-      path: '/input-skor',
+      path: '/scoring/input-skor',
       bookmarked: true,
     },
     {
       title: 'Rekapitulasi Skor Sementara',
-      icon: '📊',
-      path: '/rekapitulasi',
+      path: '/scoring/rekapitulasi',
       bookmarked: true,
     },
   ];
@@ -35,7 +32,7 @@ export default function EventPage() {
         <div className="max-w-md mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
             <button 
-              onClick={() => router.back()}
+              onClick={() => router.push('/')}
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -60,15 +57,12 @@ export default function EventPage() {
             <button
               key={item.path}
               onClick={() => router.push(item.path)}
-              className="w-full bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between group"
+              className="w-full bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between group"
             >
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">{item.icon}</span>
-                <span className="font-semibold text-left">{item.title}</span>
-              </div>
+              <span className="font-semibold text-left text-base">{item.title}</span>
               <div className="flex items-center gap-2">
                 {item.bookmarked && (
-                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                   </svg>
                 )}
