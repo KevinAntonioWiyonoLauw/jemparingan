@@ -10,17 +10,17 @@ export default function ScoringPage() {
   const menuItems = [
     {
       title: 'Data peserta',
-      path: '/scoring/participants',
+      path: '/participants',
       bookmarked: true,
     },
     {
       title: 'Input Skor',
-      path: '/scoring/input-skor',
+      path: '/input-skor',
       bookmarked: true,
     },
     {
       title: 'Rekapitulasi Skor Sementara',
-      path: '/scoring/rekapitulasi',
+      path: '/rekapitulasi',
       bookmarked: true,
     },
   ];

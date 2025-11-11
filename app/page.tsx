@@ -10,19 +10,19 @@ export default function EventPage() {
   const menuItems = [
     {
       title: 'Data Peserta',
-      icon: '📋',
+      icon: '',
       path: '/participants',
       bookmarked: true,
     },
     {
       title: 'Input Skor',
-      icon: '🎯',
+      icon: '',
       path: '/input-skor',
       bookmarked: true,
     },
     {
       title: 'Rekapitulasi Skor Sementara',
-      icon: '📊',
+      icon: '',
       path: '/rekapitulasi',
       bookmarked: true,
     },

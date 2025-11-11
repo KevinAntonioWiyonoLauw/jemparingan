@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { mockParticipants } from '../../../src/data/participants.mock';
+import { mockParticipants } from '../../src/data/participants.mock';
 import BottomNav from '@/components/ui/BottomNav';
-import type { ParticipantScore } from '../../../src/modules/scoring/types';
+import type { ParticipantScore } from '../../src/modules/scoring/types';
 
 export default function ParticipantsPage() {
   const router = useRouter();
