@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { mockBandulStatus } from '../../src/data/scoring.mock';
-import BottomNav from '../../src/components/ui/BottomNav';
+import { mockBandulStatus } from '@/data/scoring.mock';
+import BottomNav from '@/components/ui/BottomNav';
 
 export default function RekapitulasiPage() {
   const router = useRouter();

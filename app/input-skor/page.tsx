@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { mockBandulStatus } from '../../../src/data/scoring.mock';
+import { mockBandulStatus } from '@/data/scoring.mock';
 import BottomNav from '@/components/ui/BottomNav';
 
 export default function InputSkorPage() {

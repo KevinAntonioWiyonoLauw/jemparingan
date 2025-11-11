@@ -2,9 +2,8 @@
 
 import React, { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { mockParticipants } from '../../../src/data/participants.mock';
-import BottomNav from '../../../src/components/ui/BottomNav';
-import type { ParticipantScore } from '../../../src/modules/scoring/types';
+import { mockParticipants } from '@/data/participants.mock';
+import BottomNav from '@/components/ui/BottomNav';
 
 export default function BandulLeaderboardPage() {
   const router = useRouter();
