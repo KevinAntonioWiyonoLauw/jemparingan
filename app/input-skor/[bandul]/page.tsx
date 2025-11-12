@@ -9,9 +9,9 @@ import type { Bandul } from '@/modules/scoring/types';
 export default function BandulDetailPage() {
   const router = useRouter();
   const params = useParams();
-  
-  // Convert to uppercase for consistency
-  const bandul = (params.bandul as string)?.toUpperCase() as Bandul;
+
+  const rawBandul = (params?.bandul as string) || '';
+  const bandul = rawBandul.trim().charAt(0).toUpperCase() as Bandul;
   
   // Validate bandul
   if (!['A', 'B', 'C', 'D'].includes(bandul)) {

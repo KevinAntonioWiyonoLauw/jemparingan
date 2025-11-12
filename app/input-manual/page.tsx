@@ -10,7 +10,7 @@ export default function InputManualPage() {
   const handleSubmit = () => {
     if (arrowId.trim()) {
       // Navigate to score input or process the arrow ID
-      router.push(`/skor-input/${arrowId}`);
+      router.push(`/input-skor/${arrowId}`);
     }
   };
 
