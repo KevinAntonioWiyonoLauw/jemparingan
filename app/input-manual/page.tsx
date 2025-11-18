@@ -15,14 +15,14 @@ export default function InputManualPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FBF7F3]">
+    <div className="min-h-screen bg-avocado-100">
       {/* Header */}
-      <div className="bg-white sticky top-0 z-10 shadow-sm">
+      <div className="bg-twine-400 sticky top-0 z-10 shadow-sm">
         <div className="max-w-md mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
             <button 
               onClick={() => router.back()}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-twine-300 rounded-lg transition-colors"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -44,14 +44,14 @@ export default function InputManualPage() {
             value={arrowId}
             onChange={(e) => setArrowId(e.target.value)}
             placeholder="masukkan ID"
-            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="w-full px-4 py-3 bg-twine-50 border border-twine-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-twine-300 focus:border-transparent"
           />
         </div>
 
         <button
           onClick={handleSubmit}
           disabled={!arrowId.trim()}
-          className="w-full bg-pink-500 text-white py-3 rounded-xl font-semibold hover:bg-pink-600 active:bg-pink-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="w-full bg-twine-600 text-avocado-50 py-3 rounded-xl font-semibold hover:bg-twine-500 active:bg-twine-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           Submit
         </button>

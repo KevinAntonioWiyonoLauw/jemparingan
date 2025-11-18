@@ -27,15 +27,15 @@ export default function BandulLeaderboardPage() {
   return (
     <div className="min-h-screen bg-[#FBF7F3] pb-20">
       {/* Header */}
-      <div className="bg-white sticky top-0 z-10 shadow-sm">
+      <div className="bg-twine-400 sticky top-0 z-10 shadow-sm">
         <div className="max-w-md mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-2xl font-bold">Score Bandul {bandul}</h1>
             <button 
               onClick={() => router.back()}
-              className="w-10 h-10 flex items-center justify-center bg-pink-100 rounded-full"
+              className="w-10 h-10 flex items-center justify-center bg-twine-100 rounded-full"
             >
-              <span className="text-pink-500 text-xl">✕</span>
+              <span className="text-twine-500 text-xl">✕</span>
             </button>
           </div>
 
@@ -48,10 +48,10 @@ export default function BandulLeaderboardPage() {
                 placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-pink-50 border border-pink-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
+                className="w-full pl-10 pr-4 py-2.5 bg-twine-50 border border-twine-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-twine-300"
               />
             </div>
-            <button className="px-6 py-2.5 bg-pink-400 text-white rounded-lg font-medium hover:bg-pink-500 transition-colors">
+            <button className="px-6 py-2.5 bg-twine-400 text-white rounded-lg font-medium hover:bg-twine-500 transition-colors">
               Edit Peserta
             </button>
           </div>
@@ -60,7 +60,7 @@ export default function BandulLeaderboardPage() {
 
       {/* Table */}
       <div className="max-w-md mx-auto px-4 py-6">
-        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+        <div className="bg-twine-400 rounded-2xl shadow-sm overflow-hidden">
           {/* Table Header */}
           <div className="grid grid-cols-12 gap-2 px-4 py-3 bg-gray-50 border-b border-gray-100">
             <div className="col-span-2 flex items-center gap-1">
@@ -122,7 +122,7 @@ export default function BandulLeaderboardPage() {
             <select
               value={entriesPerPage}
               onChange={(e) => setEntriesPerPage(Number(e.target.value))}
-              className="px-3 py-1.5 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
+              className="px-3 py-1.5 bg-twine-400 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-twine-300"
             >
               <option value={10}>10</option>
               <option value={25}>25</option>
@@ -139,7 +139,7 @@ export default function BandulLeaderboardPage() {
               placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 pr-3 py-1.5 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-300 w-40"
+              className="pl-9 pr-3 py-1.5 bg-twine-400 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-twine-300 w-40"
             />
           </div>
         </div>

@@ -1,5 +1,89 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+  font-family: 'HYWenHei';
+  src: url('../font/hywenhei.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import "tailwindcss";
+
+/* Custom Color Palette */
+@theme {
+
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-montserrat: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-hywenhei: 'HYWenHei', 'Plus Jakarta Sans', sans-serif;
+
+  
+  /* Avocado Colors */
+  --color-avocado-50: #E6ECD6;
+  --color-avocado-100: #D5DDBC;
+  --color-avocado-200: #C3CDA3;
+  --color-avocado-300: #B0BB8B;
+  --color-avocado-400: #9DA775;
+  --color-avocado-500: #889063;
+  --color-avocado-600: #6F7456;
+  --color-avocado-700: #565948;
+  --color-avocado-800: #3F4038;
+  --color-avocado-900: #282926;
+  --color-avocado-950: #131313;
+
+  /* Twine Colors */
+  --color-twine-50: #F7E5E3;
+  --color-twine-100: #F0D3CB;
+  --color-twine-200: #E8C6B4;
+  --color-twine-300: #DFBC9E;
+  --color-twine-400: #D6B588;
+  --color-twine-500: #CBA670;
+  --color-twine-600: #C09759;
+  --color-twine-700: #B18746;
+  --color-twine-800: #97753E;
+  --color-twine-900: #7D6336;
+  --color-twine-950: #64502D;
+
+  /* Pewter Colors */
+  --color-pewter-50: #FFFFFF;
+  --color-pewter-100: #EBECEB;
+  --color-pewter-200: #D6D9D8;
+  --color-pewter-300: #C1C7C4;
+  --color-pewter-400: #ABB6B0;
+  --color-pewter-500: #94A59C;
+  --color-pewter-600: #7E938D;
+  --color-pewter-700: #6A807F;
+  --color-pewter-800: #58676B;
+  --color-pewter-900: #464F55;
+  --color-pewter-950: #343840;
+
+  /* Warna Primary (twine) - existing */
+  --color-primary-50: #fdf2f8;
+  --color-primary-100: #fce7f3;
+  --color-primary-200: #fbcfe8;
+  --color-primary-300: #f9a8d4;
+  --color-primary-400: #f472b6;
+  --color-primary-500: #ec4899;
+  --color-primary-600: #db2777;
+  --color-primary-700: #be185d;
+  --color-primary-800: #9d174d;
+  --color-primary-900: #831843;
+
+  /* Success (Green) */
+  --color-success-50: #f0fdf4;
+  --color-success-100: #dcfce7;
+  --color-success-500: #22c55e;
+  --color-success-700: #15803d;
+
+  /* Error (Red) */
+  --color-error-50: #fef2f2;
+  --color-error-100: #fee2e2;
+  --color-error-500: #ef4444;
+  --color-error-700: #b91c1c;
+
+  --color-brown-100: #EBC797;
+}
 
 /* Base Styles */
 body {

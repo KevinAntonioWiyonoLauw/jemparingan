@@ -6,15 +6,15 @@ interface BottomNavProps {
 
 export const BottomNav: React.FC<BottomNavProps> = ({ activeTab = 'explore' }) => {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
+    <div className="fixed bottom-0 left-0 right-0 bg-twine-400 border-t border-gray-200 z-50 font-hywenhei">
       <div className="max-w-md mx-auto grid grid-cols-3 h-16">
         <button 
           className={`flex flex-col items-center justify-center gap-1 ${
-            activeTab === 'explore' ? 'text-pink-500' : 'text-gray-400 hover:text-gray-600'
+            activeTab === 'explore' ? 'text-twine-900' : 'text-twine-800 hover:text-twine-900'
           }`}
         >
           <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-            activeTab === 'explore' ? 'bg-pink-100' : ''
+            activeTab === 'explore' ? 'bg-twine-100' : ''
           }`}>
             <span className="text-lg">📍</span>
           </div>
@@ -23,7 +23,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ activeTab = 'explore' }) =
         
         <button 
           className={`flex flex-col items-center justify-center gap-1 ${
-            activeTab === 'saved' ? 'text-pink-500' : 'text-gray-400 hover:text-gray-600'
+            activeTab === 'saved' ? 'text-twine-900' : 'text-twine-800 hover:text-twine-900'
           }`}
         >
           <span className="text-2xl">🔖</span>
@@ -32,7 +32,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ activeTab = 'explore' }) =
         
         <button 
           className={`flex flex-col items-center justify-center gap-1 ${
-            activeTab === 'updates' ? 'text-pink-500' : 'text-gray-400 hover:text-gray-600'
+            activeTab === 'updates' ? 'text-twine-900' : 'text-twine-800 hover:text-twine-900'
           }`}
         >
           <span className="text-2xl">🔔</span>

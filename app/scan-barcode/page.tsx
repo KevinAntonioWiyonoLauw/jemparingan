@@ -15,7 +15,7 @@ export default function BarcodeScannerPage() {
         <div className="max-w-md mx-auto px-4 py-4 flex items-center justify-between">
           <button 
             onClick={() => router.back()}
-            className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+            className="p-2 hover:bg-twine-400/10 rounded-lg transition-colors"
           >
             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -25,7 +25,7 @@ export default function BarcodeScannerPage() {
           <button
             onClick={() => setFlashOn(!flashOn)}
             className={`p-2 rounded-lg transition-colors ${
-              flashOn ? 'bg-yellow-500/30 text-yellow-300' : 'bg-white/10 text-white hover:bg-white/20'
+              flashOn ? 'bg-yellow-500/30 text-yellow-300' : 'bg-twine-400/10 text-white hover:bg-twine-400/20'
             }`}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,7 +53,7 @@ export default function BarcodeScannerPage() {
             <div className="relative w-48 h-32">
               {/* Simulated barcode on arrow */}
               <div className="absolute inset-0 flex items-center justify-center rotate-12">
-                <div className="bg-white px-4 py-2 rounded shadow-lg">
+                <div className="bg-twine-400 px-4 py-2 rounded shadow-lg">
                   <div className="flex gap-px">
                     {[...Array(12)].map((_, i) => (
                       <div 
@@ -70,7 +70,7 @@ export default function BarcodeScannerPage() {
           </div>
 
           {/* Scanning Line Animation */}
-          <div className="absolute inset-x-0 top-0 h-1 bg-pink-500 shadow-lg shadow-pink-500/50 animate-pulse"></div>
+          <div className="absolute inset-x-0 top-0 h-1 bg-twine-500 shadow-lg shadow-twine-500/50 animate-pulse"></div>
         </div>
       </div>
 
@@ -83,20 +83,20 @@ export default function BarcodeScannerPage() {
             max="100"
             value={zoomLevel}
             onChange={(e) => setZoomLevel(Number(e.target.value))}
-            className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-pink-500"
+            className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-twine-500"
           />
         </div>
       </div>
 
       {/* Bottom Sheet */}
-      <div className="absolute bottom-0 left-0 right-0 bg-pink-500 rounded-t-3xl z-10">
+      <div className="absolute bottom-0 left-0 right-0 bg-twine-500 rounded-t-3xl z-10">
         <div className="max-w-md mx-auto px-6 py-4">
           <div className="text-white text-center mb-3 font-medium">
             Gagal scan barkode anak panah?
           </div>
           <button
             onClick={() => router.push('/input-manual')}
-            className="w-full bg-white text-gray-900 py-4 rounded-xl font-semibold flex items-center justify-center gap-3 hover:bg-gray-100 transition-colors"
+            className="w-full bg-twine-400 text-gray-900 py-4 rounded-xl font-semibold flex items-center justify-center gap-3 hover:bg-gray-100 transition-colors"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />

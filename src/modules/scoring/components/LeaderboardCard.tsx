@@ -21,7 +21,7 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({
 
   if (ranked.length === 0) {
     return (
-      <div className={`bg-white rounded-2xl p-4 shadow-sm ${className}`}>
+      <div className={`bg-twine-400 rounded-2xl p-4 shadow-sm ${className}`}>
         <h3 className="font-semibold mb-3">🏆 Leaderboard Bandul {bandul}</h3>
         <div className="text-center py-6 text-gray-500">
           Belum ada skor tersedia
@@ -31,7 +31,7 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({
   }
 
   return (
-    <div className={`bg-white rounded-2xl p-4 shadow-sm ${className}`}>
+    <div className={`bg-twine-400 rounded-2xl p-4 shadow-sm ${className}`}>
       <h3 className="font-semibold mb-3">🏆 Leaderboard Bandul {bandul}</h3>
       
       <div className="space-y-2">
@@ -67,7 +67,7 @@ export const LeaderboardCard: React.FC<LeaderboardCardProps> = ({
               </div>
 
               {/* Total Score */}
-              <div className="font-bold text-pink-600 text-lg">
+              <div className="font-bold text-twine-600 text-lg">
                 {item.totalScore}
               </div>
             </div>

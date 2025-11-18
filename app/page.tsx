@@ -29,9 +29,9 @@ export default function EventPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FBF7F3] pb-20">
+    <div className="min-h-screen bg-avocado-200 pb-20">
       {/* Header */}
-      <div className="bg-white sticky top-0 z-10 shadow-sm">
+      <div className="bg-twine-400 sticky top-0 z-10 shadow-sm">
         <div className="max-w-md mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
             <button 
@@ -49,18 +49,18 @@ export default function EventPage() {
 
       {/* Event Info */}
       <div className="max-w-md mx-auto px-4 py-6">
-        <div className="bg-white rounded-2xl p-4 shadow-sm mb-6">
+        <div className=" p-4  mb-6 font-hywenhei">
           <h2 className="font-bold text-lg mb-1">Nama Event</h2>
           <p className="text-sm text-gray-600">Tanggal dan Waktu</p>
         </div>
 
         {/* Menu Cards */}
-        <div className="space-y-3">
+        <div className="space-y-3 font-hywenhei">
           {menuItems.map((item) => (
             <button
               key={item.path}
               onClick={() => router.push(item.path)}
-              className="w-full bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between group"
+              className="w-full bg-twine-400 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between group"
             >
               <div className="flex items-center gap-3">
                 <span className="text-2xl">{item.icon}</span>
@@ -68,7 +68,7 @@ export default function EventPage() {
               </div>
               <div className="flex items-center gap-2">
                 {item.bookmarked && (
-                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 text-avocado-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                   </svg>
                 )}

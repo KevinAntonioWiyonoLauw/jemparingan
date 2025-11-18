@@ -31,7 +31,7 @@ export const ScoringTable: React.FC<ScoringTableProps> = ({
   const hasAnyScore = bandulParticipants.some(p => p.arrows.length > 0);
 
   return (
-    <div className="bg-white rounded-2xl p-4 shadow-sm">
+    <div className="bg-twine-400 rounded-2xl p-4 shadow-sm">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-semibold text-lg">Bandul {bandul}</h3>
@@ -107,7 +107,7 @@ export const ScoringTable: React.FC<ScoringTableProps> = ({
                     </span>
                   </td>
                   <td className="text-center p-3">
-                    <span className="inline-flex items-center justify-center w-10 h-8 bg-pink-100 text-pink-700 rounded-full text-sm font-bold">
+                    <span className="inline-flex items-center justify-center w-10 h-8 bg-twine-100 text-twine-700 rounded-full text-sm font-bold">
                       {total}
                     </span>
                   </td>

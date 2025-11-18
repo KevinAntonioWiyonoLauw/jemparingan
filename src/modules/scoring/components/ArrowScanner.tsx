@@ -49,7 +49,7 @@ export const ArrowScanner: React.FC<ArrowScannerProps> = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="p-6 bg-white rounded-2xl max-w-sm mx-auto">
+      <div className="p-6 bg-twine-400 rounded-2xl max-w-sm mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-semibold">Input Skor Anak Panah</h2>
@@ -84,7 +84,7 @@ export const ArrowScanner: React.FC<ArrowScannerProps> = ({
             <div className="text-center text-gray-500">
               <div className="text-4xl mb-2">📱</div>
               <p className="text-sm">Arahkan ke barcode anak panah</p>
-              <div className="mt-4 border-2 border-dashed border-pink-300 w-32 h-20 mx-auto rounded"></div>
+              <div className="mt-4 border-2 border-dashed border-twine-300 w-32 h-20 mx-auto rounded"></div>
             </div>
           </div>
         )}
@@ -111,7 +111,7 @@ export const ArrowScanner: React.FC<ArrowScannerProps> = ({
                 className={`
                   flex-1 py-3 rounded-lg font-semibold text-sm
                   ${score === s.toString() 
-                    ? "bg-pink-500 text-white" 
+                    ? "bg-twine-500 text-white" 
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                   }
                 `}
@@ -131,7 +131,7 @@ export const ArrowScanner: React.FC<ArrowScannerProps> = ({
               type="checkbox"
               checked={isMbedhol}
               onChange={(e) => setIsMbedhol(e.target.checked)}
-              className="w-5 h-5 text-pink-500 rounded"
+              className="w-5 h-5 text-twine-500 rounded"
             />
             <span className="text-sm font-medium">🏆 Mbedhol (Bandhul lepas)</span>
           </label>

@@ -28,7 +28,7 @@ export default function ScoringPage() {
   return (
     <div className="min-h-screen bg-[#FBF7F3] pb-20">
       {/* Header */}
-      <div className="bg-white sticky top-0 z-10 shadow-sm">
+      <div className="bg-twine-400 sticky top-0 z-10 shadow-sm">
         <div className="max-w-md mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
             <button 
@@ -46,7 +46,7 @@ export default function ScoringPage() {
 
       {/* Event Info */}
       <div className="max-w-md mx-auto px-4 py-6">
-        <div className="bg-white rounded-2xl p-4 shadow-sm mb-6">
+        <div className="bg-twine-400 rounded-2xl p-4 shadow-sm mb-6">
           <h2 className="font-bold text-lg mb-1">Nama Event</h2>
           <p className="text-sm text-gray-600">Tanggal dan Waktu</p>
         </div>
@@ -57,7 +57,7 @@ export default function ScoringPage() {
             <button
               key={item.path}
               onClick={() => router.push(item.path)}
-              className="w-full bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between group"
+              className="w-full bg-twine-400 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow flex items-center justify-between group"
             >
               <span className="font-semibold text-left text-base">{item.title}</span>
               <div className="flex items-center gap-2">

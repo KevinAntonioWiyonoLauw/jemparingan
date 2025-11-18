@@ -20,7 +20,7 @@ export default function Button({
   };
 
   const variantStyles = {
-    primary: "bg-pink-500 text-white hover:bg-pink-600 active:bg-pink-700",
+    primary: "bg-twine-500 text-white hover:bg-twine-600 active:bg-twine-700",
     secondary: "bg-gray-100 text-gray-700 hover:bg-gray-200 active:bg-gray-300",
     outline: "border border-gray-300 text-gray-700 hover:bg-gray-50 active:bg-gray-100"
   };

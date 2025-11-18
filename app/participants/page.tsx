@@ -37,17 +37,17 @@ export default function ParticipantsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FBF7F3] pb-20">
+    <div className="min-h-screen bg-avocado-100 pb-20">
       {/* Header */}
-      <div className="bg-white sticky top-0 z-10 shadow-sm">
+      <div className="bg-twine-400 sticky top-0 z-10 shadow-sm">
         <div className="max-w-md mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-2xl font-bold">Data Peserta</h1>
             <button 
               onClick={() => router.back()}
-              className="w-10 h-10 flex items-center justify-center bg-pink-100 rounded-full"
+              className="w-10 h-10 flex items-center justify-center bg-twine-100 rounded-full"
             >
-              <span className="text-pink-500 text-xl">✕</span>
+              <span className="text-twine-500 text-xl">✕</span>
             </button>
           </div>
 
@@ -60,10 +60,10 @@ export default function ParticipantsPage() {
                 placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-pink-50 border border-pink-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
+                className="w-full pl-10 pr-4 py-2.5 bg-twine-50 border border-twine-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-twine-300"
               />
             </div>
-            <button className="px-6 py-2.5 bg-pink-400 text-white rounded-lg font-medium hover:bg-pink-500 transition-colors">
+            <button className="px-6 py-2.5 bg-twine-700 text-avocado-50 rounded-lg font-medium hover:bg-twine-500 transition-colors">
               Edit Peserta
             </button>
           </div>
@@ -72,19 +72,19 @@ export default function ParticipantsPage() {
 
       {/* Table */}
       <div className="max-w-md mx-auto px-4 py-6">
-        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+        <div className="bg-twine-400 rounded-2xl shadow-sm overflow-hidden">
           {/* Table Header */}
-          <div className="grid grid-cols-12 gap-4 px-4 py-3 bg-gray-50 border-b border-gray-100">
+          <div className="grid grid-cols-12 gap-4 px-4 py-3 bg-twine-500 border-b border-gray-100">
             <div className="col-span-1 flex items-center gap-1">
               <span className="text-xs font-semibold text-gray-600">⇅</span>
             </div>
             <div className="col-span-4 flex items-center gap-1">
               <span className="text-xs font-semibold text-gray-900">ID Peserta</span>
-              <span className="text-xs text-gray-400">⇅</span>
+              <span className="text-xs text-twine-900">⇅</span>
             </div>
             <div className="col-span-5 flex items-center gap-1">
               <span className="text-xs font-semibold text-gray-900">Nama</span>
-              <span className="text-xs text-gray-400">⇅</span>
+              <span className="text-xs text-twine-900">⇅</span>
             </div>
             <div className="col-span-2"></div>
           </div>
@@ -99,7 +99,7 @@ export default function ParticipantsPage() {
               displayedParticipants.map((participant) => (
                 <div 
                   key={participant.participantId}
-                  className="grid grid-cols-12 gap-4 px-4 py-4 hover:bg-gray-50 transition-colors"
+                  className="grid grid-cols-12 gap-4 px-4 py-4 hover:bg-twine-300 transition-colors"
                 >
                   <div className="col-span-1"></div>
                   <div className="col-span-4">
@@ -135,7 +135,7 @@ export default function ParticipantsPage() {
             <select
               value={entriesPerPage}
               onChange={(e) => setEntriesPerPage(Number(e.target.value))}
-              className="px-3 py-1.5 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
+              className="px-3 py-1.5 bg-twine-400 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-twine-300"
             >
               <option value={10}>10</option>
               <option value={25}>25</option>
@@ -152,7 +152,7 @@ export default function ParticipantsPage() {
               placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 pr-3 py-1.5 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-300 w-40"
+              className="pl-9 pr-3 py-1.5 bg-twine-400 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-twine-300 w-40"
             />
           </div>
         </div>

@@ -10,7 +10,7 @@ interface BandulSwitcherProps {
 
 /**
  * Mobile-first bandul switcher (A-D) sesuai design mockup.
- * Uses pink-500 untuk active state, white untuk inactive.
+ * Uses twine-500 untuk active state, white untuk inactive.
  */
 export const BandulSwitcher: React.FC<BandulSwitcherProps> = ({ 
   value, 
@@ -37,8 +37,8 @@ export const BandulSwitcher: React.FC<BandulSwitcherProps> = ({
                 flex-1 py-3 px-4 rounded-lg font-semibold text-sm min-h-[44px]
                 transition-all duration-200 min-w-[64px]
                 ${isActive 
-                  ? "bg-pink-500 text-white shadow-lg" 
-                  : "bg-transparent text-gray-700 hover:bg-white/50"
+                  ? "bg-twine-500 text-white shadow-lg" 
+                  : "bg-transparent text-gray-700 hover:bg-twine-400/50"
                 }
                 ${disabled 
                   ? "opacity-50 cursor-not-allowed" 
