@@ -1,13 +1,19 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 import localFont from 'next/font/local';
-import { Montserrat } from "next/font/google";
+import { Montserrat, Plus_Jakarta_Sans } from "next/font/google";
 
 const wenhei = localFont({ 
   src: './HYWenHei.ttf', 
   display: 'swap', 
 });
 
-const fontGoogle = Montserrat({ 
+const montserrat = Montserrat({ 
+  subsets: ['latin'],
+});
+
+const jakartaSans = Plus_Jakarta_Sans({ 
   subsets: ['latin'],
 });
 
@@ -23,6 +29,12 @@ const panah = <button>
             </button>
 
 export default function RekapitulasiScore() {
+    const [searchTerm, setSearchTerm] = useState("");
+    const filteredData = dataPengawas.filter((item) => 
+        item.namaPengawas.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.bandul.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
     <div className="min-h-screen bg-[#C3CDA3] pb-20">
         {/* <img className="absolute w-[510px] h-[600px] rotate-0 top-[265px] z-10"
@@ -46,11 +58,14 @@ export default function RekapitulasiScore() {
 
             {/* Search Bar */}
             <div className="bg-[#EBC797] absolute h-[53px] top-[106px] left-[21px] right-[21px] rounded-xl border-[#FFDDB1] border-dashed border">
-                <div className={`${fontGoogle.className} flex gap-4 p-4 items-start -mt-1.5`}>
+                <div className={`${montserrat.className} flex gap-4 p-4 items-start -mt-1.5`}>
                     <input
                         type="text"
                         placeholder="🔍︎   Search..."
                         className="bg-white h-8 rounded-lg border-[#9E9E9E] border px-3 text-[12px] focus:outline-none font-medium grow" 
+                        
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                     />
                     <button
                         className="bg-[#C09759] w-[83px] h-8 rounded-lg text-white text-[12px] font-bold shrink-0">
@@ -61,22 +76,22 @@ export default function RekapitulasiScore() {
         </div>
 
         {/* main */}
-        <div className="w-[95%] mx-auto z-20"> 
+        <div className="relative w-[95%] mx-auto z-20 mt-[175px] min-h-[75vh]"> 
             <img 
-                className="w-full mt-[120px] h-auto" 
+                className="absolute inset-0 w-full h-full z-0" 
                 src="/tableBg.svg"
             />
     
-            <div className={`${fontGoogle.className} bg-[#D6D9D833] rounded-[14px] w-[350px] h-[374px] shadow-lg p-4 -mt-100 ml-4 text-[14px]`}> 
+            <div className="relative z-10 w-[90%] mx-auto h-full p-4 mt-8"> 
                 <table className="w-full"> 
-                <thead>
-                    <tr className="font-bold">
+                <thead className="top-0">
+                    <tr className={`${wenhei.className} font-bold`}>
                         <th className="py-2">↕ Bandul</th>
                         <th className="py-2">Nama Pengawas ↕</th> 
                     </tr>
                 </thead>
-                <tbody>
-                    {dataPengawas.map((pengawas, index) => (
+                <tbody className={`${jakartaSans.className}`}>
+                    {filteredData.map((pengawas, index) => (
                         <tr key={pengawas.bandul} className="font-medium">
                             <td className="py-3 font-medium">{pengawas.bandul}</td> 
                             <td className="py-3 font-medium">{pengawas.namaPengawas}</td>
@@ -85,11 +100,12 @@ export default function RekapitulasiScore() {
                     ))}
                 </tbody>
                 </table>
+
             </div>
         </div>
 
         {/* footer */}
-        <footer className="w-full h-[78px] bg-[#B18746] rounded-t-[9px] bottom-0 fixed">
+        <footer className="w-full h-auto bg-[#B18746] rounded-t-[9px] bottom-0 fixed pb-1 z-100">
             <div className={`${wenhei.className} text-white text-[12px] w-full h-full flex justify-between pt-1.5 px-10`}>
                 <button className="flex flex-col items-center">
                     <div className="w-[63px] h-[49px] rounded-[20px] bg-[#7D6336] flex justify-center items-center shadow-xs">
