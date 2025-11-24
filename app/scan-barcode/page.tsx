@@ -2,109 +2,87 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Navbar from '@/components/navbar/navbarB';
+import Bottom from '@/components/bottom/bottom-scan';
 
 export default function BarcodeScannerPage() {
   const router = useRouter();
   const [zoomLevel, setZoomLevel] = useState(50);
   const [flashOn, setFlashOn] = useState(false);
+  const [pageTitle] = useState('Scan Barkode Anak Panah');
 
   return (
-    <div className="min-h-screen bg-gray-900 relative">
-      {/* Header */}
-      <div className="absolute top-0 left-0 right-0 z-10">
-        <div className="max-w-md mx-auto px-4 py-4 flex items-center justify-between">
-          <button 
-            onClick={() => router.back()}
-            className="p-2 hover:bg-twine-400/10 rounded-lg transition-colors"
-          >
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <h1 className="text-white font-semibold">Scan Barkode Anak Panah</h1>
-          <button
-            onClick={() => setFlashOn(!flashOn)}
-            className={`p-2 rounded-lg transition-colors ${
-              flashOn ? 'bg-yellow-500/30 text-yellow-300' : 'bg-twine-400/10 text-white hover:bg-twine-400/20'
-            }`}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          </button>
-        </div>
-      </div>
+    <div className="h-svh w-full bg-[#101A2B] text-white flex flex-col overflow-hidden">
+      <header className="shrink-0">
+        <Navbar title={pageTitle} />
+      </header>
 
-      {/* Camera View with Scanning Frame */}
-      <div className="h-screen w-full flex items-center justify-center relative">
-        {/* Mock Camera Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-800 to-gray-900"></div>
-        
-        {/* Scanning Frame */}
-        <div className="relative z-10 w-80 h-64">
-          {/* Corner Brackets */}
-          <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-white rounded-tl-2xl"></div>
-          <div className="absolute top-0 right-0 w-16 h-16 border-t-4 border-r-4 border-white rounded-tr-2xl"></div>
-          <div className="absolute bottom-0 left-0 w-16 h-16 border-b-4 border-l-4 border-white rounded-bl-2xl"></div>
-          <div className="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-white rounded-br-2xl"></div>
-          
-          {/* Mock Arrow Image */}
+      <section className="flex-1 relative flex items-center justify-center px-[2vh]">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#142035] to-[#0C1120]" />
+
+        <button
+          type="button"
+          onClick={() => setFlashOn((prev) => !prev)}
+          className="absolute top-[2vh] right-[2vh] z-20 w-[5vh] h-[5vh] rounded-full bg-white/15 border border-white/30 flex items-center justify-center text-white"
+          aria-label="Toggle flash"
+        >
+          <svg
+            className="w-[2.6vh] h-[2.6vh]"
+            viewBox="0 0 24 24"
+            fill={flashOn ? '#F8C35E' : 'none'}
+            stroke="#F8C35E"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M13 2L3 14h7l-1 8 10-12h-7z" />
+            <circle cx="19" cy="5" r="1.4" fill="#F8C35E" />
+          </svg>
+        </button>
+
+        <div className="relative z-10 w-[38vh] h-[28vh] mt-[4vh] flex items-center justify-center">
+          <div className="absolute top-0 left-0 w-[8vh] h-[8vh] border-t-[0.6vh] border-l-[0.6vh] border-white/80 rounded-tl-[2vh]" />
+          <div className="absolute top-0 right-0 w-[8vh] h-[8vh] border-t-[0.6vh] border-r-[0.6vh] border-white/80 rounded-tr-[2vh]" />
+          <div className="absolute bottom-0 left-0 w-[8vh] h-[8vh] border-b-[0.6vh] border-l-[0.6vh] border-white/80 rounded-bl-[2vh]" />
+          <div className="absolute bottom-0 right-0 w-[8vh] h-[8vh] border-b-[0.6vh] border-r-[0.6vh] border-white/80 rounded-br-[2vh]" />
+
+          <div className="absolute inset-x-[5vh] top-[0.5vh] h-[0.4vh] bg-[#cda36b] rounded-full" />
+
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative w-48 h-32">
-              {/* Simulated barcode on arrow */}
-              <div className="absolute inset-0 flex items-center justify-center rotate-12">
-                <div className="bg-twine-400 px-4 py-2 rounded shadow-lg">
-                  <div className="flex gap-px">
-                    {[...Array(12)].map((_, i) => (
-                      <div 
-                        key={i} 
-                        className="bg-black" 
-                        style={{ width: '3px', height: '40px' }}
-                      />
-                    ))}
-                  </div>
-                  <div className="text-center text-xs mt-1 font-mono">A10-3</div>
+            <div className="relative w-[20vh] h-[14vh] rotate-12">
+              <div className="bg-[#D9B07A] px-[2vh] py-[1vh] rounded-[1vh] shadow-xl shadow-black/40">
+                <div className="flex gap-[0.2vh]">
+                  {Array.from({ length: 12 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className="bg-black"
+                      style={{ width: '0.4vh', height: '5vh' }}
+                    />
+                  ))}
+                </div>
+                <div className="text-center text-[1.3vh] mt-[0.7vh] font-mono text-black">
+                  A10-3
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Scanning Line Animation */}
-          <div className="absolute inset-x-0 top-0 h-1 bg-twine-500 shadow-lg shadow-twine-500/50 animate-pulse"></div>
+          <div className="absolute inset-x-0 top-[6vh] h-[0.4vh] bg-twine-500 shadow-[0_0_1.5vh_rgba(255,165,81,0.7)] animate-pulse" />
         </div>
+      </section>
+
+      <div className="shrink-0 px-[3vh] mb-[5vh]">
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={zoomLevel}
+          onChange={(e) => setZoomLevel(Number(e.target.value))}
+          className="w-full h-[0.8vh] bg-white/20 rounded-full appearance-none accent-twine-400"
+        />
       </div>
 
-      {/* Zoom Control */}
-      <div className="absolute bottom-32 left-0 right-0 z-10">
-        <div className="max-w-md mx-auto px-8">
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={zoomLevel}
-            onChange={(e) => setZoomLevel(Number(e.target.value))}
-            className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-twine-500"
-          />
-        </div>
-      </div>
-
-      {/* Bottom Sheet */}
-      <div className="absolute bottom-0 left-0 right-0 bg-twine-500 rounded-t-3xl z-10">
-        <div className="max-w-md mx-auto px-6 py-4">
-          <div className="text-white text-center mb-3 font-medium">
-            Gagal scan barkode anak panah?
-          </div>
-          <button
-            onClick={() => router.push('/input-manual')}
-            className="w-full bg-twine-400 text-gray-900 py-4 rounded-xl font-semibold flex items-center justify-center gap-3 hover:bg-gray-100 transition-colors"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-            </svg>
-            Pindah ke Input ID anak panah?
-          </button>
-        </div>
-      </div>
+      <Bottom />
     </div>
   );
 }

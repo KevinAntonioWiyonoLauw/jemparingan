@@ -25,7 +25,12 @@ export default {
       },
       borderRadius: { xl: "var(--radius)" },
       boxShadow: { soft: "var(--shadow)" },
-      fontFamily: { sans: ["var(--font-sans)", "system-ui", "sans-serif"] },
+      fontFamily: {
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        abhaya: ["var(--font-abhaya)", "serif"],
+        hywenhei: ["var(--font-hywenhei)", "sans-serif"],
+        poppins: ["var(--font-poppins)", "sans-serif"],
+      },
     },
   },
   plugins: [],

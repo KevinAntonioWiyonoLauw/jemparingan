@@ -1,46 +1,59 @@
-import React from 'react';
+import Image from "next/image"
 
 interface BottomNavProps {
-  activeTab?: 'explore' | 'saved' | 'updates';
+  activeTab?: "explore" | "history" | "updates"
+  icons?: {
+    explore: string
+    history: string
+    updates: string
+  }
 }
 
-export const BottomNav: React.FC<BottomNavProps> = ({ activeTab = 'explore' }) => {
+const labels = [
+  { key: "explore", text: "Explore" },
+  { key: "history", text: "History" },
+  { key: "updates", text: "Updates" },
+] as const
+
+export default function BottomNav({
+  activeTab = "explore",
+  icons = {
+    explore: "/icons/explore.webp",
+    history: "/icons/history.webp",
+    updates: "/icons/updates.webp",
+  },
+}: BottomNavProps) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-twine-400 border-t border-gray-200 z-50 font-hywenhei">
-      <div className="max-w-md mx-auto grid grid-cols-3 h-16">
-        <button 
-          className={`flex flex-col items-center justify-center gap-1 ${
-            activeTab === 'explore' ? 'text-twine-900' : 'text-twine-800 hover:text-twine-900'
-          }`}
-        >
-          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-            activeTab === 'explore' ? 'bg-twine-100' : ''
-          }`}>
-            <span className="text-lg">📍</span>
-          </div>
-          <span className="text-xs font-medium">Explore</span>
-        </button>
-        
-        <button 
-          className={`flex flex-col items-center justify-center gap-1 ${
-            activeTab === 'saved' ? 'text-twine-900' : 'text-twine-800 hover:text-twine-900'
-          }`}
-        >
-          <span className="text-2xl">🔖</span>
-          <span className="text-xs">Saved</span>
-        </button>
-        
-        <button 
-          className={`flex flex-col items-center justify-center gap-1 ${
-            activeTab === 'updates' ? 'text-twine-900' : 'text-twine-800 hover:text-twine-900'
-          }`}
-        >
-          <span className="text-2xl">🔔</span>
-          <span className="text-xs">Updates</span>
-        </button>
+    <div className="fixed bottom-0 left-0 right-0 bg-avocado-600 rounded-t-[2vh] z-50">
+      <div className="max-w-[428px] mx-auto grid grid-cols-3 font-abhaya text-white">
+        {labels.map(({ key, text }) => (
+          <button
+            key={key}
+            className="flex flex-col items-center pt-[1vh]"
+          >
+            <span
+              className={`relative w-[6vh] h-[6vh] rounded-full flex items-center justify-center ${
+                activeTab === key ? "bg-twine-900/80 shadow-[0_0_30px_rgba(255,153,0,1)]" : ""
+              }`}
+            >
+              <Image
+                src={icons[key]}
+                alt={text}
+                fill
+                className="object-contain"
+                sizes="48px"
+              />
+            </span>
+            <span
+              className={`text-[1.8vh] ${
+                activeTab === key ? "font-bold" : "font-medium opacity-70"
+              }`}
+            >
+              {text}
+            </span>
+          </button>
+        ))}
       </div>
     </div>
-  );
-};
-
-export default BottomNav;
+  )
+}

@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, {useState} from 'react';
 import { useRouter } from 'next/navigation';
 import BottomNav from '../src/components/ui/BottomNav';
+import Navbar from '@/components/navbar/navbarB';
 
 export default function EventPage() {
   const router = useRouter();
@@ -28,23 +29,15 @@ export default function EventPage() {
     },
   ];
 
+  const [pageTitle, setPageTitle] = useState("Input Score")
+
   return (
     <div className="min-h-screen bg-avocado-200 pb-20">
+      
+
       {/* Header */}
-      <div className="bg-twine-400 sticky top-0 z-10 shadow-sm">
-        <div className="max-w-md mx-auto px-4 py-4">
-          <div className="flex items-center gap-3">
-            <button 
-              onClick={() => router.back()}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <h1 className="text-xl font-bold">Event Committee Pages</h1>
-          </div>
-        </div>
+      <div className="sticky top-0 z-20">
+        <Navbar title={pageTitle} />
       </div>
 
       {/* Event Info */}
