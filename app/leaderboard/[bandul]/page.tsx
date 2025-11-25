@@ -1,152 +1,90 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useRouter, useParams } from 'next/navigation';
 import { mockParticipants } from '@/data/participants.mock';
+import Navbar from '@/components/navbar/navbarA';
 import BottomNav from '@/components/ui/BottomNav';
+import TreeBackground from '@/components/tree/tree-background';
+import LeaderboardTable, { LeaderboardRow } from '@/components/leaderboard/leaderboard-table';
 
 export default function BandulLeaderboardPage() {
   const router = useRouter();
   const params = useParams();
   const bandul = (params.bandul as string)?.toUpperCase() || 'A';
-  
+
   const [searchQuery, setSearchQuery] = useState('');
   const [entriesPerPage, setEntriesPerPage] = useState(10);
 
-  // Filter participants for this bandul and by search
   const participants = mockParticipants
-    .filter(p => p.bandul === bandul)
-    .filter(p => 
-      p.participantId.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    .filter((p) => p.bandul === bandul)
+    .filter(
+      (p) =>
+        p.participantId.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.name?.toLowerCase().includes(searchQuery.toLowerCase()),
     )
     .sort((a, b) => (b.totalScore || 0) - (a.totalScore || 0));
 
   const displayedParticipants = participants.slice(0, entriesPerPage);
 
-  return (
-    <div className="min-h-screen bg-[#FBF7F3] pb-20">
-      {/* Header */}
-      <div className="bg-twine-400 sticky top-0 z-10 shadow-sm">
-        <div className="max-w-md mx-auto px-4 py-4">
-          <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-bold">Score Bandul {bandul}</h1>
-            <button 
-              onClick={() => router.back()}
-              className="w-10 h-10 flex items-center justify-center bg-twine-100 rounded-full"
-            >
-              <span className="text-twine-500 text-xl">✕</span>
-            </button>
-          </div>
+  const rows: LeaderboardRow[] = displayedParticipants.map((participant, index) => ({
+    rank: index + 1,
+    participantId: participant.participantId,
+    name: participant.name || '',
+    score: participant.totalScore || 0,
+  }));
 
-          {/* Search and Edit Button */}
-          <div className="flex gap-2">
+  return (
+    <div className="relative min-h-screen bg-avocado-200 pb-24 overflow-hidden">
+      <TreeBackground className="bottom-[-12vh]" width={1300} height={1100} />
+
+      <div className="relative z-10 flex flex-col min-h-screen font-['Montserrat'] text-[#3D2B1F]">
+        <Navbar title={`Score Bandul ${bandul}`} />
+
+        <main className="flex-1 w-full max-w-[428px] mx-auto px-[2vh] pt-[2vh] space-y-[2.5vh]">
+          <div className="flex gap-[1vh] items-center">
             <div className="flex-1 relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
               <input
                 type="text"
                 placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-twine-50 border border-twine-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-twine-300"
+                className="w-full pl-[4vh] pr-[1.8vh] py-[1.4vh] bg-white border border-[#D7C6AA] rounded-[1.4vh] text-[1.6vh] focus:outline-none focus:ring-2 focus:ring-[#B6925D]"
               />
             </div>
-            <button className="px-6 py-2.5 bg-twine-400 text-white rounded-lg font-medium hover:bg-twine-500 transition-colors">
-              Edit Peserta
+            <button className="px-[3vh] py-[1.4vh] bg-[#C4874C] text-white rounded-[1.4vh] text-[1.6vh] font-semibold hover:bg-[#aa7440]">
+              Cari
             </button>
           </div>
-        </div>
+
+          <LeaderboardTable rows={rows} />
+
+          <div className="flex items-center justify-between text-sm font-sans font-semibold text-[#3D2B1F]">
+            <div className="flex items-center gap-2 font-sans font-semibold">
+              <span>Show</span>
+              <select
+                value={entriesPerPage}
+                onChange={(e) => setEntriesPerPage(Number(e.target.value))}
+                className="px-3 py-1.2 bg-white/80 border border-[#D7C6AA] rounded-full focus:outline-none focus:ring-2 focus:ring-[#B6925D]"
+              >
+                {[10, 25, 50, 100].map((val) => (
+                  <option key={val} value={val}>
+                    {val}
+                  </option>
+                ))}
+              </select>
+              <span>entries</span>
+            </div>
+
+            <span className="text-sm text-[#6E5336] font-sans font-semibold">
+              Showing {displayedParticipants.length} of {participants.length}
+            </span>
+          </div>
+        </main>
+
+        <BottomNav activeTab="explore" />
       </div>
-
-      {/* Table */}
-      <div className="max-w-md mx-auto px-4 py-6">
-        <div className="bg-twine-400 rounded-2xl shadow-sm overflow-hidden">
-          {/* Table Header */}
-          <div className="grid grid-cols-12 gap-2 px-4 py-3 bg-gray-50 border-b border-gray-100">
-            <div className="col-span-2 flex items-center gap-1">
-              <span className="text-xs font-semibold text-gray-900">Peringkat</span>
-            </div>
-            <div className="col-span-3 flex items-center gap-1">
-              <span className="text-xs font-semibold text-gray-900">ID Peserta</span>
-            </div>
-            <div className="col-span-4 flex items-center gap-1">
-              <span className="text-xs font-semibold text-gray-900">Nama</span>
-            </div>
-            <div className="col-span-3 flex items-center gap-1 justify-end">
-              <span className="text-xs font-semibold text-gray-900">Skor</span>
-            </div>
-          </div>
-
-          {/* Table Rows */}
-          <div className="divide-y divide-gray-50">
-            {displayedParticipants.length === 0 ? (
-              <div className="px-4 py-12 text-center text-gray-500">
-                Tidak ada data tersedia
-              </div>
-            ) : (
-              displayedParticipants.map((participant, index) => (
-                <div 
-                  key={participant.participantId}
-                  className="grid grid-cols-12 gap-2 px-4 py-4 hover:bg-gray-50 transition-colors"
-                >
-                  <div className="col-span-2">
-                    <span className="text-sm font-medium text-gray-900">
-                      {index + 1}
-                    </span>
-                  </div>
-                  <div className="col-span-3">
-                    <span className="text-sm font-medium text-gray-900">
-                      #{participant.participantId}
-                    </span>
-                  </div>
-                  <div className="col-span-4">
-                    <span className="text-sm text-gray-700">
-                      {participant.name}
-                    </span>
-                  </div>
-                  <div className="col-span-3 flex justify-end">
-                    <span className="text-sm font-bold text-gray-900">
-                      {participant.totalScore || 0}
-                    </span>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-
-        {/* Pagination Controls */}
-        <div className="flex items-center justify-between mt-4 text-sm">
-          <div className="flex items-center gap-2">
-            <span className="text-gray-600">Show</span>
-            <select
-              value={entriesPerPage}
-              onChange={(e) => setEntriesPerPage(Number(e.target.value))}
-              className="px-3 py-1.5 bg-twine-400 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-twine-300"
-            >
-              <option value={10}>10</option>
-              <option value={25}>25</option>
-              <option value={50}>50</option>
-              <option value={100}>100</option>
-            </select>
-            <span className="text-gray-600">entries</span>
-          </div>
-
-          <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
-            <input
-              type="text"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 pr-3 py-1.5 bg-twine-400 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-twine-300 w-40"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Navigation */}
-      <BottomNav activeTab="explore" />
     </div>
   );
 }

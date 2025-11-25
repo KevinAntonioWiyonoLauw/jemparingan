@@ -1,170 +1,82 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useMemo, useState } from 'react';
 import { mockParticipants } from '@/data/participants.mock';
+import Navbar from '@/components/navbar/navbarA';
 import BottomNav from '@/components/ui/BottomNav';
-import type { ParticipantScore } from '@/modules/scoring/types';
+import TreeBackground from '@/components/tree/tree-background';
+import DataPesertaTable from '@/components/data-peserta/data-peserta-table';
 
-export default function ParticipantsPage() {
-  const router = useRouter();
-  const [participants, setParticipants] = useState<ParticipantScore[]>([]);
+export default function DataPesertaPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [entriesPerPage, setEntriesPerPage] = useState(10);
-  const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load participants
-  useEffect(() => {
-    if (!isLoaded) {
-      setParticipants(mockParticipants);
-      setIsLoaded(true);
-    }
-  }, [isLoaded]);
-
-  // Filter participants based on search
-  const filteredParticipants = participants.filter(p => 
-    p.participantId.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    p.name?.toLowerCase().includes(searchQuery.toLowerCase())
+  const filtered = useMemo(
+    () =>
+      mockParticipants.filter(
+        (p) =>
+          p.participantId.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          p.name?.toLowerCase().includes(searchQuery.toLowerCase()),
+      ),
+    [searchQuery],
   );
 
-  // Pagination
-  const displayedParticipants = filteredParticipants.slice(0, entriesPerPage);
-
-  const handleDelete = (participantId: string) => {
-    if (confirm('Yakin ingin menghapus peserta ini?')) {
-      setParticipants(prev => prev.filter(p => p.participantId !== participantId));
-    }
-  };
+const rows = filtered.slice(0, entriesPerPage).map((item) => ({
+    id: item.participantId,
+    name: item.name ?? '-',
+    origin: item.bandul ? `Bandul ${item.bandul}` : '-',
+  }));
 
   return (
-    <div className="min-h-screen bg-avocado-100 pb-20">
-      {/* Header */}
-      <div className="bg-twine-400 sticky top-0 z-10 shadow-sm">
-        <div className="max-w-md mx-auto px-4 py-4">
-          <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-bold">Data Peserta</h1>
-            <button 
-              onClick={() => router.back()}
-              className="w-10 h-10 flex items-center justify-center bg-twine-100 rounded-full"
-            >
-              <span className="text-twine-500 text-xl">✕</span>
-            </button>
-          </div>
+    <div className="relative min-h-screen bg-avocado-200 pb-24 overflow-hidden">
+      <TreeBackground className="bottom-[-12vh]" width={1300} height={1100} />
 
-          {/* Search and Edit Button */}
-          <div className="flex gap-2">
+      <div className="relative z-10 flex flex-col min-h-screen font-['Montserrat'] text-[#3D2B1F]">
+        <Navbar title="Data Peserta" />
+
+        <main className="flex-1 w-full max-w-[428px] mx-auto px-[2vh] pt-[2vh] space-y-[2.4vh]">
+          <div className="flex gap-[1vh] items-center">
             <div className="flex-1 relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
               <input
                 type="text"
                 placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-twine-50 border border-twine-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-twine-300"
+                className="w-full pl-[4vh] pr-[1.8vh] py-[1.4vh] bg-white border border-[#D7C6AA] rounded-[1.4vh] text-[1.6vh] focus:outline-none focus:ring-2 focus:ring-[#B6925D]"
               />
             </div>
-            <button className="px-6 py-2.5 bg-twine-700 text-avocado-50 rounded-lg font-medium hover:bg-twine-500 transition-colors">
-              Edit Peserta
+            <button className="px-[3vh] py-[1.4vh] bg-[#C4874C] text-white rounded-[1.4vh] text-[1.6vh] font-semibold hover:bg-[#aa7440]">
+              Cari
             </button>
           </div>
-        </div>
+
+          <DataPesertaTable rows={rows} />
+
+          <div className="flex items-center justify-between text-sm font-sans font-semibold text-[#3D2B1F]">
+            <div className="flex items-center gap-2 font-sans font-semibold">
+              <span>Show</span>
+              <select
+                value={entriesPerPage}
+                onChange={(e) => setEntriesPerPage(Number(e.target.value))}
+                className="px-3 py-1.2 bg-white/80 border border-[#D7C6AA] rounded-full focus:outline-none focus:ring-2 focus:ring-[#B6925D]"
+              >
+                {[10, 25, 50, 100].map((val) => (
+                  <option key={val} value={val}>
+                    {val}
+                  </option>
+                ))}
+              </select>
+              <span>entries</span>
+            </div>
+
+            <span className="text-sm text-[#6E5336] font-sans font-semibold">
+              Showing {rows.length} of {filtered.length}
+            </span>
+          </div>
+        </main>
+
+        <BottomNav activeTab="explore" />
       </div>
-
-      {/* Table */}
-      <div className="max-w-md mx-auto px-4 py-6">
-        <div className="bg-twine-400 rounded-2xl shadow-sm overflow-hidden">
-          {/* Table Header */}
-          <div className="grid grid-cols-12 gap-4 px-4 py-3 bg-twine-500 border-b border-gray-100">
-            <div className="col-span-1 flex items-center gap-1">
-              <span className="text-xs font-semibold text-gray-600">⇅</span>
-            </div>
-            <div className="col-span-4 flex items-center gap-1">
-              <span className="text-xs font-semibold text-gray-900">ID Peserta</span>
-              <span className="text-xs text-twine-900">⇅</span>
-            </div>
-            <div className="col-span-5 flex items-center gap-1">
-              <span className="text-xs font-semibold text-gray-900">Nama</span>
-              <span className="text-xs text-twine-900">⇅</span>
-            </div>
-            <div className="col-span-2"></div>
-          </div>
-
-          {/* Table Rows */}
-          <div className="divide-y divide-gray-50">
-            {displayedParticipants.length === 0 ? (
-              <div className="px-4 py-12 text-center text-gray-500">
-                Tidak ada peserta ditemukan
-              </div>
-            ) : (
-              displayedParticipants.map((participant) => (
-                <div 
-                  key={participant.participantId}
-                  className="grid grid-cols-12 gap-4 px-4 py-4 hover:bg-twine-300 transition-colors"
-                >
-                  <div className="col-span-1"></div>
-                  <div className="col-span-4">
-                    <span className="text-sm font-medium text-gray-900">
-                      {participant.participantId}
-                    </span>
-                  </div>
-                  <div className="col-span-5">
-                    <span className="text-sm text-gray-700">
-                      {participant.name}
-                    </span>
-                  </div>
-                  <div className="col-span-2 flex justify-end">
-                    <button
-                      onClick={() => handleDelete(participant.participantId)}
-                      className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                    >
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-
-        {/* Pagination Controls */}
-        <div className="flex items-center justify-between mt-4 text-sm">
-          <div className="flex items-center gap-2">
-            <span className="text-gray-600">Show</span>
-            <select
-              value={entriesPerPage}
-              onChange={(e) => setEntriesPerPage(Number(e.target.value))}
-              className="px-3 py-1.5 bg-twine-400 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-twine-300"
-            >
-              <option value={10}>10</option>
-              <option value={25}>25</option>
-              <option value={50}>50</option>
-              <option value={100}>100</option>
-            </select>
-            <span className="text-gray-600">entries</span>
-          </div>
-
-          <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
-            <input
-              type="text"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 pr-3 py-1.5 bg-twine-400 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-twine-300 w-40"
-            />
-          </div>
-        </div>
-
-        {/* Results Info */}
-        <div className="mt-4 text-center text-sm text-gray-500">
-          Menampilkan {displayedParticipants.length} dari {filteredParticipants.length} peserta
-        </div>
-      </div>
-
-      {/* Bottom Navigation */}
-      <BottomNav activeTab="explore" />
     </div>
   );
 }

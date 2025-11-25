@@ -5,22 +5,25 @@ import React from "react";
 
 export default function TreeBackground({
   className = "",
-  width = 1100,
-  height = 900,
+  width = 2000,
+  height = 2000,
 }: {
   className?: string;
   width?: number;
   height?: number;
 }) {
   return (
-    <div className={`pointer-events-none select-none absolute inset-x-0 bottom-[-18vh] z-0 flex justify-center ${className}`}>
+    <div
+      className={`pointer-events-none select-none absolute inset-x-0 bottom-[-20vh] ml-[-21vh] z-0 flex justify-start ${className}`}
+    >
       <Image
         src="/tree.webp"
         alt="Tree background"
         width={width}
         height={height}
         priority
-        className="w-[200%] max-w-none h-auto ml-[-8vh] object-contain"
+        className="max-w-none h-auto object-contain"
+        style={{ width: `${width}px` }}
       />
     </div>
   );

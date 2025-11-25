@@ -41,9 +41,11 @@ export default function Navbar({
                 className="object-contain"
                 style={{ width: "35vh", height: "auto" }}
               />
-              <span className="absolute inset-0 flex items-center justify-center mt-[2vh] text-[3vh] font-abhaya font-bold text-black">
+              <div className="absolute inset-0 flex items-center ml-4 pt-4 justify-center px-[5.4vh]">
+                <span className="w-full text-left text-[2.4vh] leading-[1.15] font-abhaya font-bold text-black">
                   {title}
                 </span>
+              </div>
             </div>
           </div>
 
