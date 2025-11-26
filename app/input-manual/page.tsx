@@ -39,8 +39,8 @@ export default function InputManualPage() {
             />
 
             <div className="absolute inset-0 px-[3vh] mt-[1.5vh] flex flex-col ">
-              <label className="text-[2.2vh] font-abhaya font-semibold text-white drop-shadow-sm">
-                ID Anak Panah <span className="text-red-400">*</span>
+              <label className="text-[2.2vh] font-abhaya font-semibold text-avocado-900 drop-shadow-sm">
+                ID Anak Panah
               </label>
 
               <input
