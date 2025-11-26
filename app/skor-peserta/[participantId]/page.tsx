@@ -4,16 +4,22 @@ import React, { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { mockParticipants } from '@/data/participants.mock';
 import BottomNav from '@/components/ui/BottomNav';
+import Navbar from '@/components/navbar/navbarA';
+import TreeBackground from '@/components/tree/tree-background';
+import TabelSkorPeserta, { SkorRow } from '@/components/skor-peserta/tabel-skor';
+import NamaPesertaCard from '@/components/skor-peserta/nama-peserta';
 
 export default function SkorPesertaPage() {
   const router = useRouter();
   const params = useParams();
   const participantId = params.participantId as string;
-  
-  const participant = mockParticipants.find(p => p.participantId === participantId);
-  
-  // State for 6 arrow scores
-  const [scores, setScores] = useState<(number | null)[]>([null, null, null, null, null, null]);
+
+  const participant = mockParticipants.find(
+    (p) => p.participantId === participantId
+  );
+
+  // contoh data skor; nanti bisa diganti dari API / state
+  const [scores] = useState<(number | null)[]>([3, 1, 0, 0, 1, 1]);
 
   if (!participant) {
     return (
@@ -23,80 +29,31 @@ export default function SkorPesertaPage() {
     );
   }
 
+  const rows: SkorRow[] = scores.map((s, i) => ({
+    no: i + 1,
+    target: s === 3 ? 'Molo' : s === 1 ? 'Awak' : '-',
+    skor: s ?? 0,
+  }));
+
   return (
-    <div className="min-h-screen bg-[#FBF7F3] pb-20">
-      {/* Header */}
-      <div className="bg-twine-400 sticky top-0 z-10 shadow-sm">
-        <div className="max-w-md mx-auto px-4 py-4">
-          <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-bold">Skor Peserta</h1>
-            <button 
-              onClick={() => router.back()}
-              className="w-10 h-10 flex items-center justify-center bg-twine-100 rounded-full"
-            >
-              <span className="text-twine-500 text-xl">✕</span>
-            </button>
-          </div>
-        </div>
-      </div>
+    <div className="relative min-h-screen bg-avocado-200 pb-24 overflow-hidden">
+      <TreeBackground className="bottom-[-12vh]" width={1300} height={1100} />
 
-      {/* Form Content */}
-      <div className="max-w-md mx-auto px-4 py-6 space-y-6">
-        {/* Nama Field */}
-        <div>
-          <label className="block text-sm font-semibold mb-2">Nama</label>
-          <input
-            type="text"
-            value={participant.name}
-            disabled
-            className="w-full px-4 py-3 bg-twine-400 border border-gray-200 rounded-lg text-gray-900"
+      <div className="relative z-10 flex flex-col min-h-screen font-['Montserrat'] text-[#3D2B1F]">
+        <Navbar title="Skor Peserta" />
+
+        <main className="flex-1 w-full max-w-[428px] mx-auto px-[2vh] pt-[2vh] space-y-[2.5vh]">
+          <NamaPesertaCard
+            name={participant.name ?? '-'}
+            participantId={participant.participantId}
+            bandul={participant.bandul ?? '-'}
           />
-        </div>
 
-        {/* Bandul Field */}
-        <div>
-          <label className="block text-sm font-semibold mb-2">Bandul</label>
-          <input
-            type="text"
-            value={participant.bandul}
-            disabled
-            className="w-full px-4 py-3 bg-twine-400 border border-gray-200 rounded-lg text-gray-900"
-          />
-        </div>
+          <TabelSkorPeserta rows={rows} />
+        </main>
 
-        {/* Skor Anak Panah */}
-        <div>
-          <h2 className="text-lg font-semibold mb-4">Skor Anak Panah</h2>
-          
-          <div className="bg-twine-400 rounded-2xl shadow-sm overflow-hidden">
-            {/* Table Header */}
-            <div className="grid grid-cols-2 gap-4 px-4 py-3 bg-gray-50 border-b border-gray-100">
-              <div className="text-xs font-semibold text-gray-900">ID Anak Panah</div>
-              <div className="text-xs font-semibold text-gray-900 text-right">Total Skor</div>
-            </div>
-
-            {/* Arrow Rows */}
-            <div className="divide-y divide-gray-50">
-              {[1, 2, 3, 4, 5, 6].map((arrowNum) => (
-                <div 
-                  key={arrowNum}
-                  className="grid grid-cols-2 gap-4 px-4 py-4 items-center"
-                >
-                  <div className="text-sm font-medium text-gray-900">
-                    {arrowNum}
-                  </div>
-                  <div className="text-right text-sm text-gray-500">
-                    -/-
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <BottomNav activeTab="explore" />
       </div>
-
-      {/* Bottom Navigation */}
-      <BottomNav activeTab="explore" />
     </div>
   );
 }

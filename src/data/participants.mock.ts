@@ -3,7 +3,7 @@ import type { ParticipantScore } from '../modules/scoring/types';
 export const mockParticipants: ParticipantScore[] = [
   // Bandul A
   {
-    participantId: 'A001',
+    participantId: '20463',
     name: 'Agus Budiman',
     bandul: 'A',
     arrows: [],
@@ -14,7 +14,7 @@ export const mockParticipants: ParticipantScore[] = [
     submitted: false,
   },
   {
-    participantId: 'A002',
+    participantId: '20464',
     name: 'Bambang Suharto',
     bandul: 'A',
     arrows: [],
@@ -25,7 +25,7 @@ export const mockParticipants: ParticipantScore[] = [
     submitted: false,
   },
   {
-    participantId: 'A003',
+    participantId: '20465',
     name: 'Catur Winarno',
     bandul: 'A',
     arrows: [],
@@ -38,7 +38,7 @@ export const mockParticipants: ParticipantScore[] = [
   
   // Bandul B
   {
-    participantId: 'B001',
+    participantId: '20466',
     name: 'Dwi Hartanto',
     bandul: 'B',
     arrows: [],
@@ -49,7 +49,7 @@ export const mockParticipants: ParticipantScore[] = [
     submitted: false,
   },
   {
-    participantId: 'B002',
+    participantId: '20467',
     name: 'Eko Prasetyo',
     bandul: 'B',
     arrows: [],
@@ -62,7 +62,7 @@ export const mockParticipants: ParticipantScore[] = [
   
   // Bandul C
   {
-    participantId: 'C001',
+    participantId: '20468',
     name: 'Fajar Wijaya',
     bandul: 'C',
     arrows: [],
@@ -73,7 +73,7 @@ export const mockParticipants: ParticipantScore[] = [
     submitted: false,
   },
   {
-    participantId: 'C002',
+    participantId: '20469',
     name: 'Gede Kusuma',
     bandul: 'C',
     arrows: [],
@@ -86,7 +86,7 @@ export const mockParticipants: ParticipantScore[] = [
   
   // Bandul D
   {
-    participantId: 'D001',
+    participantId: '20470',
     name: 'Hendra Gunawan',
     bandul: 'D',
     arrows: [],
@@ -97,7 +97,7 @@ export const mockParticipants: ParticipantScore[] = [
     submitted: false,
   },
   {
-    participantId: 'D002',
+    participantId: '20471',
     name: 'Indra Kurniawan',
     bandul: 'D',
     arrows: [],
