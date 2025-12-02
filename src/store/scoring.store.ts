@@ -1,14 +1,14 @@
 import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { mockArrowMapping } from '../data/participants.mock';
 import { calculateTotalScore, countHits, rankParticipants } from '../modules/scoring/lib/math';
-import type { 
-  Bandul, 
-  ArrowResult, 
-  ParticipantScore, 
-  ArrowInput, 
-  RankedItem 
+import type {
+  Bandul,
+  ArrowResult,
+  ParticipantScore,
+  ArrowInput,
+  RankedItem
 } from '../modules/scoring/types';
 
 interface ScoringState {
@@ -17,28 +17,30 @@ interface ScoringState {
   currentRambahan: number;
   participants: ParticipantScore[];
   arrows: ArrowResult[];
-  
+
   // UI state
   isScanning: boolean;
   isSubmitting: boolean;
-  
+  _hasHydrated: boolean;
+
   // Actions
+  setHasHydrated: (state: boolean) => void;
   setBandul: (bandul: Bandul) => void;
   setRambahan: (rambahan: number) => void;
-  
+
   // Arrow management
   addArrow: (input: ArrowInput) => void;
   removeArrow: (arrowId: string) => void;
   updateArrow: (arrowId: string, updates: Partial<ArrowResult>) => void;
-  
+
   // Participant management
   setParticipants: (participants: ParticipantScore[]) => void;
   addParticipant: (participant: ParticipantScore) => void;
-  
+
   // Bulk operations
   resetBandul: (bandul?: Bandul) => void;
   submitBandul: (bandul?: Bandul) => void;
-  
+
   // Computed getters
   getParticipantsByBandul: (bandul: Bandul) => ParticipantScore[];
   getLeaderboard: (bandul: Bandul, limit?: number) => RankedItem[];
@@ -47,7 +49,7 @@ interface ScoringState {
     totalArrows: number;
     completedRambahan: number;
   };
-  
+
   // UI actions
   setScanning: (isScanning: boolean) => void;
   setSubmitting: (isSubmitting: boolean) => void;
@@ -55,7 +57,7 @@ interface ScoringState {
 
 export const useScoringStore = create<ScoringState>()(
   devtools(
-    immer((set, get) => ({
+    persist(immer((set, get) => ({
       // Initial state
       currentBandul: 'A',
       currentRambahan: 1,
@@ -63,8 +65,10 @@ export const useScoringStore = create<ScoringState>()(
       arrows: [],
       isScanning: false,
       isSubmitting: false,
+      _hasHydrated: false,
 
       // Basic setters
+      setHasHydrated: (state) => set({ _hasHydrated: state }),
       setBandul: (bandul) => set({ currentBandul: bandul }),
       setRambahan: (rambahan) => set({ currentRambahan: rambahan }),
 
@@ -73,14 +77,18 @@ export const useScoringStore = create<ScoringState>()(
         set((state) => {
           // Find participant by arrow code mapping
           const participantId = input.participantId || mockArrowMapping[input.arrowCode];
-          
+
           if (!participantId) {
             console.warn('Arrow code not found in mapping:', input.arrowCode);
             return; // Don't add if participant not found
           }
-          
+
+          // Generate unique ID for this arrow shot to allow accumulation
+          // (User wants to scan the same barcode multiple times to add points)
+          const uniqueArrowId = `${input.arrowCode}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
           const newArrow: ArrowResult = {
-            arrowId: input.arrowCode,
+            arrowId: uniqueArrowId, // Unique ID
             participantId,
             score: input.score,
             isMbedhol: input.isMbedhol || false,
@@ -94,7 +102,7 @@ export const useScoringStore = create<ScoringState>()(
           if (participantIndex >= 0) {
             const participant = state.participants[participantIndex];
             participant.arrows = state.arrows.filter(a => a.participantId === participantId);
-            
+
             // Update computed values
             const hits = countHits(participant.arrows);
             participant.totalScore = calculateTotalScore(participant.arrows);
@@ -146,10 +154,18 @@ export const useScoringStore = create<ScoringState>()(
       // Participant management
       setParticipants: (participants) =>
         set((state) => {
-          state.participants = participants.map(p => ({
-            ...p,
-            arrows: state.arrows.filter(a => a.participantId === p.participantId),
-          }));
+          state.participants = participants.map(p => {
+            const participantArrows = state.arrows.filter(a => a.participantId === p.participantId);
+            const hits = countHits(participantArrows);
+            return {
+              ...p,
+              arrows: participantArrows,
+              totalScore: calculateTotalScore(participantArrows),
+              totalMerah: hits.merah,
+              totalPutih: hits.putih,
+              totalMbedhol: hits.mbedhol,
+            };
+          });
         }),
 
       addParticipant: (participant) =>
@@ -167,7 +183,7 @@ export const useScoringStore = create<ScoringState>()(
       resetBandul: (bandul) =>
         set((state) => {
           const targetBandul = bandul || state.currentBandul;
-          
+
           // Remove arrows for this bandul
           state.arrows = state.arrows.filter(arrow => {
             const participant = state.participants.find(p => p.participantId === arrow.participantId);
@@ -189,7 +205,7 @@ export const useScoringStore = create<ScoringState>()(
       submitBandul: (bandul) =>
         set((state) => {
           const targetBandul = bandul || state.currentBandul;
-          
+
           // Mark participants as submitted (could add submitted flag)
           state.participants.forEach(participant => {
             if (participant.bandul === targetBandul) {
@@ -239,6 +255,17 @@ export const useScoringStore = create<ScoringState>()(
       setScanning: (isScanning) => set({ isScanning }),
       setSubmitting: (isSubmitting) => set({ isSubmitting }),
     })),
-    { name: 'scoring-store' }
-  )
-);
+      {
+        name: 'scoring-store',
+        partialize: (state: ScoringState) => ({
+          currentBandul: state.currentBandul,
+          currentRambahan: state.currentRambahan,
+          participants: state.participants,
+          arrows: state.arrows,
+        }),
+        onRehydrateStorage: () => (state) => {
+          state?.setHasHydrated(true);
+        },
+      }
+    )
+  ));

@@ -59,7 +59,7 @@ export default function BandulDetailPage() {
           {submitOptions.map(({ key, title, icon, status, href }) => (
             <button
               key={key}
-              onClick={() => router.push(href)}
+              onClick={() => router.push(`${href}&bandul=${bandul}`)}
               className="relative w-full flex items-center justify-between py-[2.4vh] pl-[7vh] pr-[3vh] mt-[2vh] text-left font-abhaya text-[2.1vh] font-semibold text-[#3D2B1F]"
               style={{
                 backgroundImage: "url('/input-skor/bandul/submit-option.webp')",

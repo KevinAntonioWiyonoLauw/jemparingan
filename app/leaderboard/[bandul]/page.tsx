@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter, useParams } from 'next/navigation';
 import { mockParticipants } from '@/data/participants.mock';
+import { useScoringStore } from '@/store/scoring.store';
 import Navbar from '@/components/navbar/navbarA';
 import BottomNav from '@/components/ui/BottomNav';
 import TreeBackground from '@/components/tree/tree-background';
@@ -17,7 +18,18 @@ export default function BandulLeaderboardPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [entriesPerPage, setEntriesPerPage] = useState(10);
 
-  const participants = mockParticipants
+  // Connect to store
+  const storeParticipants = useScoringStore((state) => state.participants);
+  const setParticipants = useScoringStore((state) => state.setParticipants);
+
+  // Initialize Data if empty (e.g. direct navigation)
+  React.useEffect(() => {
+    if (storeParticipants.length === 0) {
+      setParticipants(mockParticipants);
+    }
+  }, [storeParticipants.length, setParticipants]);
+
+  const participants = storeParticipants
     .filter((p) => p.bandul === bandul)
     .filter(
       (p) =>
