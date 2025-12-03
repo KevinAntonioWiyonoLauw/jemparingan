@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Navbar from '@/components/navbar/navbarB';
 import Bottom from '@/components/bottom/bottom-scan';
 import { useZxing } from 'react-zxing';
@@ -9,11 +9,11 @@ import { useScoringStore } from '@/store/scoring.store';
 import { ArrowScore } from '@/modules/scoring/types';
 import { mockParticipants } from '@/data/participants.mock';
 
-export default function BarcodeScannerPage() {
+function BarcodeScannerContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const type = searchParams.get('type');
-  const urlBandul = searchParams.get('bandul'); // Get bandul from URL
+  const urlBandul = searchParams.get('bandul');
 
   // Store actions and state
   const addArrow = useScoringStore((state) => state.addArrow);
@@ -31,7 +31,7 @@ export default function BarcodeScannerPage() {
   const [zoomLevel, setZoomLevel] = useState(50);
   const [flashOn, setFlashOn] = useState(false);
   const [pageTitle] = useState('Scan Barkode Anak Panah');
-  const [result, setResult] = useState('A10-3'); // Default placeholder
+  const [result, setResult] = useState('A10-3');
   const [error, setError] = useState<string>('');
   const [constraints, setConstraints] = useState<MediaStreamConstraints>({
     video: { facingMode: 'environment' },
@@ -41,7 +41,7 @@ export default function BarcodeScannerPage() {
   const [lastScannedCode, setLastScannedCode] = useState<string>('');
   const [lastScore, setLastScore] = useState<number>(0);
   const [scannedParticipant, setScannedParticipant] = useState<{ name: string; bandul: string } | null>(null);
-  const [selectedBandul, setSelectedBandul] = useState<string>(urlBandul || 'A'); // Default to URL param or 'A'
+  const [selectedBandul, setSelectedBandul] = useState<string>(urlBandul || 'A');
 
   // Update selected bandul if URL changes
   React.useEffect(() => {
@@ -61,7 +61,6 @@ export default function BarcodeScannerPage() {
     onDecodeResult(result) {
       const text = result.getText();
 
-      // Prevent duplicate scans (rapid fire)
       if (showSuccess || text === lastScannedCode) {
         return;
       }
@@ -70,10 +69,8 @@ export default function BarcodeScannerPage() {
       setLastScannedCode(text);
       setError('');
 
-      // Parse Barcode: ParticipantID-ArrowIndex (e.g., 20463-3)
       const [participantId] = text.split('-');
 
-      // Find Participant
       const participant = participants.find(p => p.participantId === participantId);
 
       if (!participant) {
@@ -87,37 +84,32 @@ export default function BarcodeScannerPage() {
       const participantName = participant.name || 'Peserta Tidak Dikenal';
       const participantBandul = participant.bandul || 'A';
 
-      // Validate Bandul
       if (participantBandul !== selectedBandul) {
         setError(`Salah Bandul! Peserta ini terdaftar di Bandul ${participantBandul}, tapi Anda sedang scan Bandul ${selectedBandul}.`);
 
-        // Haptic feedback (error pattern)
         if (typeof navigator !== 'undefined' && navigator.vibrate) {
           navigator.vibrate([100, 50, 100]);
         }
-        return; // Stop processing
+        return;
       }
 
       setScannedParticipant({ name: participantName, bandul: participantBandul });
 
-      // Determine score based on URL param
       let score: ArrowScore = 0;
       if (type === 'molo') score = 3;
       else if (type === 'awak') score = 1;
 
       setLastScore(score || 0);
 
-      // Save to store
       addArrow({
         arrowCode: text,
-        participantId: participantId, // Use parsed ID
+        participantId: participantId,
         score: score,
         rambahan: currentRambahan,
       });
 
       setShowSuccess(true);
 
-      // Haptic feedback if available
       if (typeof navigator !== 'undefined' && navigator.vibrate) {
         navigator.vibrate(200);
       }
@@ -125,9 +117,8 @@ export default function BarcodeScannerPage() {
     onError(err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
-        // Auto-fallback if it's a constraint issue
         if (err.name === 'OverconstrainedError' || err.name === 'NotFoundError') {
-          setConstraints({ video: true }); // Try any camera
+          setConstraints({ video: true });
         }
       } else {
         setError('Unknown error occurred');
@@ -147,7 +138,6 @@ export default function BarcodeScannerPage() {
           <video ref={ref} className="w-full h-full object-cover" />
         </div>
 
-        {/* Overlay Gradient - Optional, maybe remove or make transparent to see camera */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#142035]/50 to-[#0C1120]/50 pointer-events-none" />
 
         <button
@@ -225,7 +215,6 @@ export default function BarcodeScannerPage() {
           </div>
         )}
 
-        {/* Success Popup */}
         {showSuccess && (
           <div className="absolute inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm p-6 animate-in fade-in duration-200">
             <div className="bg-white rounded-2xl p-6 w-full max-w-sm text-center shadow-2xl scale-100 animate-in zoom-in-95 duration-200">
@@ -244,7 +233,7 @@ export default function BarcodeScannerPage() {
                 <button
                   onClick={() => {
                     setShowSuccess(false);
-                    setLastScannedCode(''); // Allow re-scanning
+                    setLastScannedCode('');
                   }}
                   className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-xl transition-colors"
                 >
@@ -264,7 +253,6 @@ export default function BarcodeScannerPage() {
       </section>
 
       <div className="shrink-0 px-[3vh] mb-[5vh] space-y-4">
-        {/* Bandul Selector */}
         <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/20">
           <label className="block text-white/80 text-xs mb-2 font-bold uppercase tracking-wider">Bandul Saat Ini</label>
           <div className="flex gap-2">
@@ -295,5 +283,20 @@ export default function BarcodeScannerPage() {
 
       <Bottom />
     </div>
+  );
+}
+
+export default function BarcodeScannerPage() {
+  return (
+    <Suspense fallback={
+      <div className="h-svh w-full bg-[#101A2B] text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+          <p>Loading scanner...</p>
+        </div>
+      </div>
+    }>
+      <BarcodeScannerContent />
+    </Suspense>
   );
 }
