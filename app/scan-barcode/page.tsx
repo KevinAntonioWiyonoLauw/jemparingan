@@ -168,24 +168,7 @@ function BarcodeScannerContent() {
 
           <div className="absolute inset-x-[5vh] top-[0.5vh] h-[0.4vh] bg-[#cda36b] rounded-full" />
 
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative w-[20vh] h-[14vh] rotate-12">
-              <div className="bg-[#D9B07A] px-[2vh] py-[1vh] rounded-[1vh] shadow-xl shadow-black/40">
-                <div className="flex gap-[0.2vh]">
-                  {Array.from({ length: 12 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="bg-black"
-                      style={{ width: '0.4vh', height: '5vh' }}
-                    />
-                  ))}
-                </div>
-                <div className="text-center text-[1.3vh] mt-[0.7vh] font-mono text-black">
-                  {result}
-                </div>
-              </div>
-            </div>
-          </div>
+          
 
           <div className="absolute inset-x-0 top-[6vh] h-[0.4vh] bg-twine-500 shadow-[0_0_1.5vh_rgba(255,165,81,0.7)] animate-pulse" />
         </div>
