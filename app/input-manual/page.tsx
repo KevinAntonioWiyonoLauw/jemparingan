@@ -19,7 +19,9 @@ export default function InputManualPage() {
           <Navbar title={pageTitle} />
         </header>
 
-        <InputManual/>
+        <React.Suspense fallback={<div className="text-center text-white pt-10">Loading...</div>}>
+          <InputManual />
+        </React.Suspense>
 
         <div className="fixed bottom-0 left-0 w-full">
           <Bottom />

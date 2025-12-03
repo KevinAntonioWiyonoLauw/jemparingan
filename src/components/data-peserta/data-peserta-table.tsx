@@ -25,7 +25,7 @@ export default function DataPesertaTable({ rows }: Props) {
       />
 
       <div className="absolute inset-0 px-[4vh] pt-[2.4vh] pb-[2.4vh]">
-        <div className="scrollable h-full pr-[0.8vh]">
+        <div className="h-full pr-[0.8vh] overflow-y-auto scrollbar-hide">
           <table className="w-full text-[1.45vh] border-separate border-spacing-y-[0.9vh]">
             <thead className="sticky top-0 z-10 bg-[#C6A676]/95 backdrop-blur-sm border-b border-white/40">
               <tr className="font-bold text-[1.35rem] text-left">
@@ -67,16 +67,7 @@ export default function DataPesertaTable({ rows }: Props) {
         </div>
       </div>
 
-      <style jsx>{`
-        .scrollable {
-          overflow-y: auto;
-          -ms-overflow-style: none; /* IE & Edge */
-          scrollbar-width: none; /* Firefox */
-        }
-        .scrollable::-webkit-scrollbar {
-          display: none; /* Chrome, Safari */
-        }
-      `}</style>
+
     </div>
   );
 }

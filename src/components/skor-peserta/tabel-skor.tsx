@@ -40,7 +40,7 @@ export default function TabelSkorPeserta({
         <div className="flex-1 min-h-0">
           {/* tingginya diperbesar (dari 24vh -> 30vh) supaya baris bisa turun
               sampai mendekati area merah yang kamu tandai */}
-          <div className="score-scroll max-h-[35vh] overflow-y-auto pr-[0.4vh]">
+          <div className="max-h-[35vh] overflow-y-auto pr-[0.4vh] scrollbar-hide">
             <table className="w-full text-[1.4vh] border-separate border-spacing-y-[0.8vh]">
               <thead className="sticky top-0 z-10 font-abhaya font-extrabold">
                 <tr className="font-extrabold text-[16px]">
@@ -56,32 +56,32 @@ export default function TabelSkorPeserta({
                 </tr>
               </thead>
 
-<tbody className="bg-transparent">
-  {rows.map((row, index) => {
-    const baseGradient =
-      'w-full font-sans font-semibold grid  grid-cols-[minmax(0,1fr)_minmax(0,1fr)_40px] items-center gap-3 px-[1.6vh] py-[0.7vh] rounded-md';
+              <tbody className="bg-transparent">
+                {rows.map((row, index) => {
+                  const baseGradient =
+                    'w-full font-sans font-semibold grid  grid-cols-[minmax(0,1fr)_minmax(0,1fr)_40px] items-center gap-3 px-[1.6vh] py-[0.7vh] rounded-md';
 
-    // baris 1,3,5,...  => full avocado
-    const oddGradient = 'bg-gradient-to-r from-avocado-500 to-avocado-500/0';
-    // baris 2,4,6,...  => avocado-500/30 -> avocado-500 -> avocado-500/0
-    const evenGradient =
-      'bg-gradient-to-r from-avocado-500/30 via-avocado-500 to-avocado-500/0';
+                  // baris 1,3,5,...  => full avocado
+                  const oddGradient = 'bg-gradient-to-r from-avocado-500 to-avocado-500/0';
+                  // baris 2,4,6,...  => avocado-500/30 -> avocado-500 -> avocado-500/0
+                  const evenGradient =
+                    'bg-gradient-to-r from-avocado-500/30 via-avocado-500 to-avocado-500/0';
 
-    const rowGradient = index % 2 === 0 ? oddGradient : evenGradient;
+                  const rowGradient = index % 2 === 0 ? oddGradient : evenGradient;
 
-    return (
-      <tr key={row.no}>
-        <td colSpan={3}>
-          <div className={`${baseGradient} ${rowGradient}`}>
-            <span className="text-center font-sans font-semibold">{row.no}</span>
-            <span className="text-center font-sans font-semibold">{row.target || '-'}</span>
-            <span className="text-right font-sans font-semibold">{row.skor}</span>
-          </div>
-        </td>
-      </tr>
-    );
-  })}
-</tbody>
+                  return (
+                    <tr key={row.no}>
+                      <td colSpan={3}>
+                        <div className={`${baseGradient} ${rowGradient}`}>
+                          <span className="text-center font-sans font-semibold">{row.no}</span>
+                          <span className="text-center font-sans font-semibold">{row.target || '-'}</span>
+                          <span className="text-right font-sans font-semibold">{row.skor}</span>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
             </table>
           </div>
         </div>
@@ -93,15 +93,7 @@ export default function TabelSkorPeserta({
         </div>
       </div>
 
-      <style jsx>{`
-        .score-scroll {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .score-scroll::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
+
     </div>
   );
 }
